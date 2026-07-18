@@ -33,11 +33,11 @@ export async function middleware(req: NextRequest) {
 
   const { pathname } = req.nextUrl;
 
-  // Protected admin routes
-  if (pathname.startsWith('/admin')) {
+  // Protected admin routes — /admin/login is public, everything else under /admin requires admin role
+  if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
     if (!session) {
       const redirectUrl = req.nextUrl.clone();
-      redirectUrl.pathname = '/auth/login';
+      redirectUrl.pathname = '/admin/login';
       redirectUrl.searchParams.set('redirect', pathname);
       return NextResponse.redirect(redirectUrl);
     }
@@ -51,7 +51,8 @@ export async function middleware(req: NextRequest) {
 
     if (!profile || profile.role !== 'admin') {
       const redirectUrl = req.nextUrl.clone();
-      redirectUrl.pathname = '/dashboard';
+      redirectUrl.pathname = '/admin/login';
+      redirectUrl.searchParams.set('error', 'not_admin');
       return NextResponse.redirect(redirectUrl);
     }
   }

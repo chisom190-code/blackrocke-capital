@@ -1,20 +1,24 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
 import AdminSidebar from '@/components/dashboard/AdminSidebar';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { user, profile, loading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
+
+  const isLoginRoute = pathname === '/admin/login';
 
   useEffect(() => {
-    if (!loading) {
-      if (!user) router.push('/auth/login');
-      else if (profile && profile.role !== 'admin') router.push('/dashboard');
-    }
-  }, [user, profile, loading, router]);
+    if (loading || isLoginRoute) return;
+    if (!user) router.push('/admin/login');
+    else if (profile && profile.role !== 'admin') router.push('/admin/login');
+  }, [user, profile, loading, router, isLoginRoute]);
+
+  if (isLoginRoute) return <>{children}</>;
 
   if (loading || !profile) {
     return (
