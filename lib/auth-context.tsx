@@ -9,7 +9,15 @@ type AuthContextType = {
   session: Session | null;
   profile: Profile | null;
   loading: boolean;
-  signUp: (email: string, password: string, fullName: string, referralCode?: string) => Promise<{ error: string | null }>;
+  signUp: (
+  email: string,
+  password: string,
+  fullName: string,
+  referralCode?: string
+) => Promise<{
+  data: any;
+  error: string | null;
+}>;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
@@ -119,44 +127,62 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => subscription.unsubscribe();
   }, []);
 
-  const signUp = async (email: string, password: string, fullName: string, referralCode?: string) => {
-    const { data, error } = await supabase.auth.signUp({
-      email, password,
-      options: { data: { full_name: fullName } },
-    });
-    if (error) return { error: error.message };
+  const signUp = async (
+  email: string,
+  password: string,
+  fullName: string,
+  referralCode?: string
+) => {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { full_name: fullName },
+    },
+  });
 
-    // Handle referral: if a referral code was provided, find the referrer and create a referral record
-    if (referralCode && data.user) {
-      try {
-        const { data: referrerSettings } = await supabase
-          .from('user_settings')
-          .select('id, referral_code')
-          .eq('referral_code', referralCode.toUpperCase())
-          .maybeSingle();
+  if (error) {
+    return {
+      data: null,
+      error: error.message,
+    };
+  }
 
-        if (referrerSettings && referrerSettings.id !== data.user.id) {
-          // Create referral record
-          await supabase.from('referrals').insert({
-            referrer_id: referrerSettings.id,
-            referred_id: data.user.id,
-            commission_rate: 5.00,
-            earnings: 0,
-            status: 'active',
-          });
+  // Handle referral
+  if (referralCode && data.user) {
+    try {
+      const { data: referrerSettings } = await supabase
+        .from("user_settings")
+        .select("id, referral_code")
+        .eq("referral_code", referralCode.toUpperCase())
+        .maybeSingle();
 
-          // Update the new user's settings with referred_by
-          await supabase.from('user_settings').update({
+      if (referrerSettings && referrerSettings.id !== data.user.id) {
+        await supabase.from("referrals").insert({
+          referrer_id: referrerSettings.id,
+          referred_id: data.user.id,
+          commission_rate: 5.0,
+          earnings: 0,
+          status: "active",
+        });
+
+        await supabase
+          .from("user_settings")
+          .update({
             referred_by: referrerSettings.id,
-          }).eq('id', data.user.id);
-        }
-      } catch (e) {
-        // Non-blocking
+          })
+          .eq("id", data.user.id);
       }
+    } catch (e) {
+      // Ignore referral errors
     }
+  }
 
-    return { error: null };
+  return {
+    data,
+    error: null,
   };
+};
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password });

@@ -1,5 +1,7 @@
 'use client';
 
+console.log("DASHBOARD PAGE LOADED");
+
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { DollarSign, TrendingUp, ArrowDownCircle, ArrowUpCircle, Clock, BarChart2, ArrowRight, CheckCircle, AlertCircle, XCircle, Plus } from 'lucide-react';
@@ -39,21 +41,65 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) return;
-    Promise.all([
-      supabase.from('user_investments').select('*, investment_plans(*)').eq('user_id', user.id).order('created_at', { ascending: false }).limit(5),
-      supabase.from('deposits').select('*').eq('user_id', user.id).order('created_at', { ascending: false }).limit(5),
-      supabase.from('withdrawals').select('*').eq('user_id', user.id).order('created_at', { ascending: false }).limit(5),
-      supabase.from('notifications').select('*').eq('user_id', user.id).order('created_at', { ascending: false }).limit(5),
-    ]).then(([inv, dep, wit, notif]) => {
+  if (!user) {
+    setLoading(false);
+    return;
+  }
+
+  const loadDashboard = async () => {
+    try {
+      const [inv, dep, wit, notif] = await Promise.all([
+        supabase
+          .from('user_investments')
+          .select('*, investment_plans(*)')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false })
+          .limit(5),
+
+        supabase
+          .from('deposits')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false })
+          .limit(5),
+
+        supabase
+          .from('withdrawals')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false })
+          .limit(5),
+
+        supabase
+          .from('notifications')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false })
+          .limit(5),
+      ]);
+
+      if (inv.error) console.error("Investment error:", inv.error);
+      if (dep.error) console.error("Deposit error:", dep.error);
+      if (wit.error) console.error("Withdrawal error:", wit.error);
+      if (notif.error) console.error("Notification error:", notif.error);
+
       if (inv.data) setInvestments(inv.data as any);
       if (dep.data) setDeposits(dep.data as any);
       if (wit.data) setWithdrawals(wit.data as any);
       if (notif.data) setNotifications(notif.data as any);
+
+      await refreshProfile();
+
+    } catch (error) {
+      console.error("Dashboard loading error:", error);
+    } finally {
       setLoading(false);
-    });
-    refreshProfile();
-  }, [user]);
+    }
+  };
+
+  loadDashboard();
+
+}, [user]);
 
   const activeInvestments = investments.filter(i => i.status === 'active');
   const totalInvested = investments.reduce((s, i) => s + i.amount, 0);

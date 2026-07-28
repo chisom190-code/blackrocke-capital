@@ -14,9 +14,23 @@ export default function AdminUsersPage() {
   const [msg, setMsg] = useState('');
 
   useEffect(() => {
-    supabase.from('profiles').select('*').order('created_at', { ascending: false })
-      .then(({ data }) => { if (data) { setUsers(data as any); setFiltered(data as any); } setLoading(false); });
-  }, []);
+  supabase
+    .from("profiles")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .then(({ data, error }) => {
+      console.log("Profiles returned:", data);
+      console.log("Profiles length:", data?.length);
+      console.log("Profiles error:", error);
+
+      if (data) {
+        setUsers(data as any);
+        setFiltered(data as any);
+      }
+
+      setLoading(false);
+    });
+}, []);
 
   useEffect(() => {
     let r = users;

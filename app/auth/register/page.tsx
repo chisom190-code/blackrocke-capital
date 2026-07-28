@@ -43,7 +43,11 @@ export default function RegisterPage() {
     if (password.length < 6) { setError('Password must be at least 6 characters'); return; }
     setLoading(true);
     setError('');
-    const { error } = await signUp(email, password, fullName, referralCode || undefined);
+    const { data, error } = await signUp(email, password, fullName, referralCode || undefined);
+    console.log(data)
+    console.log("SIGNUP DATA:", data);
+    console.log("SESSION:", data.session);
+    console.log("USER:", data.user);
     if (error) { setError(error); setLoading(false); return; }
     setSuccess(true);
     setTimeout(() => router.push('/dashboard'), 1500);

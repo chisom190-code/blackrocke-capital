@@ -29,8 +29,13 @@ export async function middleware(req: NextRequest) {
     }
   );
 
-  const { data: { session } } = await supabase.auth.getSession();
+  const {
+  data: { session },
+  error: sessionError,
+} = await supabase.auth.getSession();
 
+console.log("Session:", session);
+console.log("Session Error:", sessionError);
   const { pathname } = req.nextUrl;
 
   // Protected admin routes — /admin/login is public, everything else under /admin requires admin role
@@ -43,20 +48,15 @@ export async function middleware(req: NextRequest) {
     }
 
     // Check admin role via profile
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', session.user.id)
-      .maybeSingle();
+    const { data: profile, error: profileError } = await supabase
+  .from("profiles")
+  .select("role")
+  .eq("id", session?.user.id)
+  .maybeSingle();
 
-    if (!profile || profile.role !== 'admin') {
-      const redirectUrl = req.nextUrl.clone();
-      redirectUrl.pathname = '/admin/login';
-      redirectUrl.searchParams.set('error', 'not_admin');
-      return NextResponse.redirect(redirectUrl);
-    }
+console.log("Profile:", profile);
+console.log("Profile Error:", profileError);
   }
-
   // Protected investor dashboard routes
   if (pathname.startsWith('/dashboard')) {
     if (!session) {

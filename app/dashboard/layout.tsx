@@ -13,6 +13,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     if (!loading && !user) router.push('/auth/login');
   }, [user, loading, router]);
 
+  console.log("Dashboard Layout Auth:", {
+  user,
+  loading
+});
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
