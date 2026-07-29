@@ -24,10 +24,22 @@ type AuthContextType = {
 };
 
 const AuthContext = createContext<AuthContextType>({
-  user: null, session: null, profile: null, loading: true,
-  signUp: async () => ({ error: null }),
-  signIn: async () => ({ error: null }),
+  user: null,
+  session: null,
+  profile: null,
+  loading: true,
+
+  signUp: async () => ({
+    data: null,
+    error: null,
+  }),
+
+  signIn: async () => ({
+    error: null,
+  }),
+
   signOut: async () => {},
+
   refreshProfile: async () => {},
 });
 
