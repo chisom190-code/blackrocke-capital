@@ -1,9 +1,13 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 
+import { sendEmail } from "../_shared/brevo.ts";
+import { withdrawalApprovedTemplate } from "../_shared/templates/withdrawal-approved.ts";
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Client-Info, Apikey",
+  "Access-Control-Allow-Headers":
+    "Content-Type, Authorization, X-Client-Info, Apikey",
 };
 
 Deno.serve(async (req: Request) => {
@@ -14,7 +18,7 @@ Deno.serve(async (req: Request) => {
   try {
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
 
     const { withdrawalId, action, adminId } = await req.json();
@@ -22,15 +26,18 @@ Deno.serve(async (req: Request) => {
     if (!withdrawalId || !action || !adminId) {
       return new Response(
         JSON.stringify({ error: "Missing required fields" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
       );
     }
 
     if (!["approve", "reject", "complete"].includes(action)) {
-      return new Response(
-        JSON.stringify({ error: "Invalid action" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Invalid action" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Verify admin
@@ -41,10 +48,10 @@ Deno.serve(async (req: Request) => {
       .single();
 
     if (adminErr || !adminProfile || adminProfile.role !== "admin") {
-      return new Response(
-        JSON.stringify({ error: "Unauthorized" }),
-        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 403,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Fetch withdrawal
@@ -55,20 +62,26 @@ Deno.serve(async (req: Request) => {
       .single();
 
     if (witErr || !withdrawal) {
-      return new Response(
-        JSON.stringify({ error: "Withdrawal not found" }),
-        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Withdrawal not found" }), {
+        status: 404,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     let newStatus: string;
-    let updateData: any = { reviewed_by: adminId, reviewed_at: new Date().toISOString() };
+    let updateData: any = {
+      reviewed_by: adminId,
+      reviewed_at: new Date().toISOString(),
+    };
 
     if (action === "approve") {
       if (withdrawal.status !== "pending") {
         return new Response(
           JSON.stringify({ error: "Withdrawal already processed" }),
-          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          },
         );
       }
       newStatus = "approved";
@@ -81,8 +94,14 @@ Deno.serve(async (req: Request) => {
         .single();
 
       if (profile) {
-        const newBalance = Math.max(0, (profile.balance || 0) - withdrawal.amount);
-        const newPending = Math.max(0, (profile.pending_withdrawals || 0) - withdrawal.amount);
+        const newBalance = Math.max(
+          0,
+          (profile.balance || 0) - withdrawal.amount,
+        );
+        const newPending = Math.max(
+          0,
+          (profile.pending_withdrawals || 0) - withdrawal.amount,
+        );
         await supabase
           .from("profiles")
           .update({
@@ -101,11 +120,39 @@ Deno.serve(async (req: Request) => {
         status: "approved",
         notes: `Withdrawal to ${withdrawal.wallet_address} (${withdrawal.crypto_type}) approved by admin`,
       });
+
+      // Get the user's auth email
+      const {
+        data: { user: authUser },
+        error: authError,
+      } = await supabase.auth.admin.getUserById(withdrawal.user_id);
+
+      if (!authError && authUser?.email && profile) {
+        try {
+          await sendEmail({
+            to: authUser.email,
+            name: profile.full_name,
+            subject: "Withdrawal Approved",
+            html: withdrawalApprovedTemplate(
+              profile.full_name,
+              Number(withdrawal.amount),
+              "$",
+            ),
+          });
+
+          console.log("Withdrawal approval email sent.");
+        } catch (emailError) {
+          console.error("Failed to send withdrawal email:", emailError);
+        }
+      }
     } else if (action === "complete") {
       if (withdrawal.status !== "approved") {
         return new Response(
           JSON.stringify({ error: "Withdrawal must be approved first" }),
-          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          },
         );
       }
       newStatus = "completed";
@@ -122,7 +169,8 @@ Deno.serve(async (req: Request) => {
         await supabase
           .from("profiles")
           .update({
-            total_withdrawals: (profile.total_withdrawals || 0) + withdrawal.amount,
+            total_withdrawals:
+              (profile.total_withdrawals || 0) + withdrawal.amount,
             updated_at: new Date().toISOString(),
           })
           .eq("id", withdrawal.user_id);
@@ -132,7 +180,10 @@ Deno.serve(async (req: Request) => {
       if (withdrawal.status !== "pending") {
         return new Response(
           JSON.stringify({ error: "Withdrawal already processed" }),
-          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          },
         );
       }
       newStatus = "rejected";
@@ -148,22 +199,34 @@ Deno.serve(async (req: Request) => {
         await supabase
           .from("profiles")
           .update({
-            pending_withdrawals: Math.max(0, (profile.pending_withdrawals || 0) - withdrawal.amount),
+            pending_withdrawals: Math.max(
+              0,
+              (profile.pending_withdrawals || 0) - withdrawal.amount,
+            ),
           })
           .eq("id", withdrawal.user_id);
       }
     }
 
     updateData.status = newStatus;
-    await supabase.from("withdrawals").update(updateData).eq("id", withdrawalId);
+    await supabase
+      .from("withdrawals")
+      .update(updateData)
+      .eq("id", withdrawalId);
 
     // Notify user
-    const notifTitle = action === "approve" ? "Withdrawal Approved" : action === "complete" ? "Withdrawal Completed" : "Withdrawal Rejected";
-    const notifMsg = action === "approve"
-      ? `Your withdrawal of $${withdrawal.amount.toLocaleString()} (${withdrawal.crypto_type}) has been approved and is being processed.`
-      : action === "complete"
-      ? `Your withdrawal of $${withdrawal.amount.toLocaleString()} (${withdrawal.crypto_type}) has been completed and sent to your wallet.`
-      : `Your withdrawal of $${withdrawal.amount.toLocaleString()} (${withdrawal.crypto_type}) has been rejected. Please contact support.`;
+    const notifTitle =
+      action === "approve"
+        ? "Withdrawal Approved"
+        : action === "complete"
+          ? "Withdrawal Completed"
+          : "Withdrawal Rejected";
+    const notifMsg =
+      action === "approve"
+        ? `Your withdrawal of $${withdrawal.amount.toLocaleString()} (${withdrawal.crypto_type}) has been approved and is being processed.`
+        : action === "complete"
+          ? `Your withdrawal of $${withdrawal.amount.toLocaleString()} (${withdrawal.crypto_type}) has been completed and sent to your wallet.`
+          : `Your withdrawal of $${withdrawal.amount.toLocaleString()} (${withdrawal.crypto_type}) has been rejected. Please contact support.`;
 
     await supabase.from("notifications").insert({
       user_id: withdrawal.user_id,
@@ -181,14 +244,13 @@ Deno.serve(async (req: Request) => {
       metadata: { withdrawalId, amount: withdrawal.amount, action },
     });
 
-    return new Response(
-      JSON.stringify({ success: true, status: newStatus }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ success: true, status: newStatus }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (err) {
-    return new Response(
-      JSON.stringify({ error: err.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: err.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });

@@ -3,6 +3,9 @@
 import Link from 'next/link';
 import { TrendingUp, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
+import Image from 'next/image';
+
+import licence from '@/app/assets/license.png'
 
 export default function Footer() {
   const { t, isRTL } = useLanguage();
@@ -111,7 +114,24 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-amber-400 flex-shrink-0" />
-                <span className="text-gray-400 text-sm">Jamshidiazar728@gmail.com</span>
+                <span className="text-gray-400 text-sm">blackgold7456@gmail.com</span>
+              </li>
+              <li>
+                <div style={{
+                  width: "100px",
+                  height: "fit-content",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                  <Image style={{
+                    width: "100%",
+                    height: "auto",
+                    objectFit: "contain",
+                    minWidth: "100%",
+                    maxWidth: "100%",
+                  }} src={licence} alt="licence image" />
+                </div>
               </li>
             </ul>
           </div>

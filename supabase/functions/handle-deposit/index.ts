@@ -1,5 +1,8 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 
+import { sendEmail } from "../_shared/brevo.ts";
+import { depositApprovedTemplate } from "../_shared/templates/deposite-approved.ts";
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
@@ -448,6 +451,34 @@ Deno.serve(async (req: Request) => {
         title: "Deposit Approved",
         message: `Your deposit of $${deposit.amount.toLocaleString()} (${deposit.crypto_type}) has been approved and credited to your account.`,
       });
+
+      // --------------------------------------------------
+// SEND EMAIL
+// --------------------------------------------------
+
+const {
+  data: { user: authUser },
+  error: authError,
+} = await supabase.auth.admin.getUserById(deposit.user_id);
+
+if (!authError && authUser?.email) {
+  try {
+    await sendEmail({
+      to: authUser.email,
+      name: profile.full_name,
+      subject: "Deposit Approved",
+      html: depositApprovedTemplate(
+        profile.full_name,
+        Number(deposit.amount),
+        "$",
+      ),
+    });
+
+    console.log("Deposit email sent successfully.");
+  } catch (emailError) {
+    console.error("Failed to send deposit email:", emailError);
+  }
+}
 
     // --------------------------------------------------
     // 15. SUCCESS
