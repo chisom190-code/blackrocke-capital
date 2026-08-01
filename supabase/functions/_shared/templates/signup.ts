@@ -32,7 +32,7 @@ You can now log in and begin investing securely.
 </p>
 
 <a
-href="https://yourdomain.com/dashboard"
+href="https://blackgoldinvests.com/dashboard"
 style="
 display:inline-block;
 margin-top:25px;

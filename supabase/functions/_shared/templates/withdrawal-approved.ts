@@ -47,7 +47,7 @@ Funds are now being processed.
 </p>
 
 <a
-href="https://yourdomain.com/dashboard"
+href="https://blackgoldinvests.com/dashboard"
 style="
 background:#dc2626;
 padding:14px 30px;

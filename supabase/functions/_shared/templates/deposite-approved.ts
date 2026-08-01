@@ -42,7 +42,7 @@ Your balance has been updated successfully.
 </p>
 
 <a
-href="https://yourdomain.com/dashboard"
+href="https://blackgoldinvests.com/dashboard"
 style="
 padding:14px 30px;
 background:#16a34a;
