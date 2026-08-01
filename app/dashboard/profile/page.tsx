@@ -93,7 +93,7 @@ export default function ProfilePage() {
                 <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${profile?.kyc_status === 'verified' ? 'bg-green-500/20 text-green-400' : 'bg-amber-500/20 text-amber-400'}`}>
                   {profile?.kyc_status === 'verified' ? '✓ KYC Verified' : 'KYC Pending'}
                 </span>
-                <span className="text-xs px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-400 font-semibold capitalize">{profile?.role}</span>
+                <span className="text-xs px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-400 font-semibold investsize">{profile?.role}</span>
               </div>
             </div>
           </div>
@@ -168,7 +168,7 @@ export default function ProfilePage() {
                 <div className="space-y-4 max-w-md">
                   {(['current', 'new', 'confirm'] as const).map(field => (
                     <div key={field}>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2 capitalize">{field === 'confirm' ? 'Confirm New Password' : field === 'new' ? 'New Password' : 'Current Password'}</label>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2 investsize">{field === 'confirm' ? 'Confirm New Password' : field === 'new' ? 'New Password' : 'Current Password'}</label>
                       <div className="relative">
                         <input type={showPass[field] ? 'text' : 'password'} value={passForm[field]} onChange={e => setPassForm(f => ({ ...f, [field]: e.target.value }))}
                           className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-100 text-sm pr-12" placeholder="••••••••" />

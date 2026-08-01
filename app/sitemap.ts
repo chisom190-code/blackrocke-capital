@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://blackrockecapital.com';
+  const baseUrl = 'https://Blackgoldinvests.com';
   const lastModified = new Date();
 
   const staticRoutes = [

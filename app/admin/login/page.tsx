@@ -149,8 +149,8 @@ export default function AdminLoginPage() {
               <TrendingUp className="w-6 h-6 text-black" />
             </div>
             <div>
-              <span className="text-xl font-bold text-white">BlackRocke</span>
-              <span className="text-xl font-bold text-amber-400"> Capital</span>
+              <span className="text-xl font-bold text-white">Blackgold</span>
+              <span className="text-xl font-bold text-amber-400"> invests</span>
             </div>
           </Link>
         </div>
@@ -195,8 +195,8 @@ export default function AdminLoginPage() {
               <Shield className="w-6 h-6 text-amber-400" />
             </div>
             <div>
-              <span className="text-xl font-bold text-black">BlackRocke</span>
-              <span className="text-xl font-bold text-amber-500"> Capital</span>
+              <span className="text-xl font-bold text-black">Blackgold</span>
+              <span className="text-xl font-bold text-amber-500"> invests</span>
             </div>
           </div>
 
@@ -250,7 +250,7 @@ export default function AdminLoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isLocked}
                 className="w-full px-4 py-3.5 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-100 transition-all text-sm disabled:opacity-50"
-                placeholder="admin@blackrocke.capital"
+                placeholder="admin@Blackgold.invests"
               />
             </div>
             <div>

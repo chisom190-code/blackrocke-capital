@@ -119,8 +119,8 @@ export default function RegisterPage() {
               <TrendingUp className="w-6 h-6 text-black" />
             </div>
             <div>
-              <span className="text-xl font-bold text-white">BlackRocke</span>
-              <span className="text-xl font-bold text-amber-400"> Capital</span>
+              <span className="text-xl font-bold text-white">Blackgold</span>
+              <span className="text-xl font-bold text-amber-400"> invests</span>
             </div>
           </Link>
         </div>
@@ -129,7 +129,7 @@ export default function RegisterPage() {
             Start Building Your Wealth Today
           </h2>
           <p className="text-gray-400 mb-8">
-            Join 50,000+ investors who trust BlackRocke Capital to grow their
+            Join 50,000+ investors who trust Blackgold invests to grow their
             wealth.
           </p>
           <div className="grid grid-cols-2 gap-4">
@@ -167,8 +167,8 @@ export default function RegisterPage() {
               <TrendingUp className="w-6 h-6 text-amber-400" />
             </div>
             <div>
-              <span className="text-xl font-bold text-black">BlackRocke</span>
-              <span className="text-xl font-bold text-amber-500"> Capital</span>
+              <span className="text-xl font-bold text-black">Blackgold</span>
+              <span className="text-xl font-bold text-amber-500"> invests</span>
             </div>
           </div>
 

@@ -26,7 +26,7 @@ Deno.serve(async (req: Request) => {
 
     switch (type) {
       case "signup":
-        subject = "Welcome to BlackRocke Capital";
+        subject = "Welcome to Blackgold invests";
         html = signupTemplate(fullName);
         break;
 

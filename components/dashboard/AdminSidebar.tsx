@@ -40,7 +40,7 @@ export default function AdminSidebar() {
         {!collapsed && (
           <div>
             <div className="text-sm font-black text-white leading-none">Admin Panel</div>
-            <div className="text-xs font-bold text-amber-500">BlackRocke Capital</div>
+            <div className="text-xs font-bold text-amber-500">Blackgold invests</div>
           </div>
         )}
       </div>

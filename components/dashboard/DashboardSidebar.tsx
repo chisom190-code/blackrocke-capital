@@ -41,8 +41,8 @@ export default function DashboardSidebar() {
         </div>
         {!collapsed && (
           <div>
-            <div className="text-sm font-black text-black leading-none">BlackRocke</div>
-            <div className="text-xs font-bold text-amber-500">Capital</div>
+            <div className="text-sm font-black text-black leading-none">Blackgold</div>
+            <div className="text-xs font-bold text-amber-500">invests</div>
           </div>
         )}
       </div>

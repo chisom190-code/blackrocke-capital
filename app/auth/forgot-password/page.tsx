@@ -35,21 +35,21 @@ export default function ForgotPasswordPage() {
         <div className="relative z-10">
           <Link href="/" className="flex items-center gap-3">
             <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center"><TrendingUp className="w-6 h-6 text-black" /></div>
-            <div><span className="text-xl font-bold text-white">BlackRocke</span><span className="text-xl font-bold text-amber-400"> Capital</span></div>
+            <div><span className="text-xl font-bold text-white">Blackgold</span><span className="text-xl font-bold text-amber-400"> invests</span></div>
           </Link>
         </div>
         <div className="relative z-10">
           <h2 className="text-4xl font-bold text-white mb-4">Password Recovery</h2>
           <p className="text-gray-400">We'll send a secure link to reset your password. Check your inbox after submitting.</p>
         </div>
-        <div className="relative z-10 text-gray-500 text-sm">© {new Date().getFullYear()} BlackRocke Capital</div>
+        <div className="relative z-10 text-gray-500 text-sm">© {new Date().getFullYear()} Blackgold invests</div>
       </div>
 
       <div className="flex-1 flex items-center justify-center px-6 py-12 bg-white">
         <div className="w-full max-w-md">
           <div className="lg:hidden flex items-center gap-3 mb-8">
             <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center"><TrendingUp className="w-6 h-6 text-amber-400" /></div>
-            <div><span className="text-xl font-bold text-black">BlackRocke</span><span className="text-xl font-bold text-amber-500"> Capital</span></div>
+            <div><span className="text-xl font-bold text-black">Blackgold</span><span className="text-xl font-bold text-amber-500"> invests</span></div>
           </div>
 
           {sent ? (

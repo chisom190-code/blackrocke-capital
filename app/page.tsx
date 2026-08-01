@@ -16,11 +16,11 @@ const PLAN_IMAGES = [
 ];
 
 const TESTIMONIALS = [
-  { name: 'James Harrison', role: 'CEO, TechVentures', country: 'United States', flag: '🇺🇸', avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=200', text: 'BlackRocke Capital has completely transformed my investment portfolio. The 23% ROI on my Prestige plan exceeded all my expectations. I\'ve been investing for 15 years and this is by far the best platform.', stars: 5 },
+  { name: 'James Harrison', role: 'CEO, TechVentures', country: 'United States', flag: '🇺🇸', avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=200', text: 'Blackgold invests has completely transformed my investment portfolio. The 23% ROI on my Prestige plan exceeded all my expectations. I\'ve been investing for 15 years and this is by far the best platform.', stars: 5 },
   { name: 'Sophie Laurent', role: 'Financial Director', country: 'France', flag: '🇫🇷', avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=200', text: 'Exceptional service and remarkable returns. The team is always available, the platform is intuitive, and the weekly reports are incredibly detailed. Je recommande vivement!', stars: 5 },
   { name: 'Ahmed Al-Rashid', role: 'Business Owner', country: 'UAE', flag: '🇦🇪', avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=200', text: 'I started with the Foundation Portfolio and within a year moved to Platinum. The customer support is outstanding and the returns are consistent. Highly recommended for serious investors.', stars: 5 },
-  { name: 'Yuki Tanaka', role: 'Investment Analyst', country: 'Japan', flag: '🇯🇵', avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=200', text: 'The transparency and professionalism of BlackRocke Capital sets them apart. My Platinum Portfolio has delivered exceptional 30% returns consistently. The dashboard makes tracking investments effortless.', stars: 5 },
-  { name: 'Elena Volkova', role: 'Entrepreneur', country: 'Russia', flag: '🇷🇺', avatar: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=200', text: 'После многих инвестиционных платформ я наконец нашла надежную. BlackRocke Capital — это профессионализм на высшем уровне. Мои вложения выросли на 30% за 3 месяца.', stars: 5 },
+  { name: 'Yuki Tanaka', role: 'Investment Analyst', country: 'Japan', flag: '🇯🇵', avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=200', text: 'The transparency and professionalism of Blackgold invests sets them apart. My Platinum Portfolio has delivered exceptional 30% returns consistently. The dashboard makes tracking investments effortless.', stars: 5 },
+  { name: 'Elena Volkova', role: 'Entrepreneur', country: 'Russia', flag: '🇷🇺', avatar: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=200', text: 'После многих инвестиционных платформ я наконец нашла надежную. Blackgold invests — это профессионализм на высшем уровне. Мои вложения выросли на 30% за 3 месяца.', stars: 5 },
   { name: 'Carlos Mendez', role: 'Real Estate Developer', country: 'Brazil', flag: '🇧🇷', avatar: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=200', text: 'Investi com o plano Executive e fui surpreendido com os resultados. 15% de ROI em 7 dias é incrível. A equipe é extremamente profissional e o suporte 24/7 é excelente!', stars: 5 },
 ];
 
@@ -353,10 +353,10 @@ export default function HomePage() {
             </FadeIn>
             <FadeIn direction="right">
               <div>
-                <span className="text-amber-400 font-semibold text-sm uppercase tracking-widest mb-3 block">Why BlackRocke</span>
+                <span className="text-amber-400 font-semibold text-sm uppercase tracking-widest mb-3 block">Why Blackgold</span>
                 <h2 className="text-4xl font-bold text-white mb-6">The World's Most Trusted Investment Platform</h2>
                 <p className="text-gray-400 leading-relaxed mb-8">
-                  With over 15 years of expertise and $2.8 billion in managed assets, BlackRocke Capital delivers exceptional returns through sophisticated investment strategies and unwavering commitment to client success.
+                  With over 15 years of expertise and $2.8 billion in managed assets, Blackgold invests delivers exceptional returns through sophisticated investment strategies and unwavering commitment to client success.
                 </p>
                 <div className="space-y-4">
                   {[
@@ -395,7 +395,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-2xl font-bold text-black">Larry Fink</h3>
               <p className="text-amber-600 font-semibold mt-1">Chairman &amp; CEO</p>
-              <p className="text-gray-500 text-sm mt-2 max-w-md">Leading BlackRocke Capital with decades of financial expertise and a commitment to delivering exceptional investment returns for our global clients.</p>
+              <p className="text-gray-500 text-sm mt-2 max-w-md">Leading Blackgold invests with decades of financial expertise and a commitment to delivering exceptional investment returns for our global clients.</p>
             </div>
           </FadeIn>
         </div>

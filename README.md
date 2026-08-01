@@ -1,4 +1,4 @@
-# BlackRocke Capital – Premium Investment Platform
+# Blackgold invests – Premium Investment Platform
 
 A production-ready investment management platform built with Next.js, Supabase (PostgreSQL), and TypeScript.
 
@@ -67,7 +67,7 @@ A production-ready investment management platform built with Next.js, Supabase (
 1. Clone the repository:
    ```bash
    git clone <repository-url>
-   cd blackrocke-capital
+   cd Blackgold-invests
    ```
 
 2. Install dependencies:
@@ -113,8 +113,8 @@ A production-ready investment management platform built with Next.js, Supabase (
 ### Database Migrations
 
 The project includes these migrations in `supabase/migrations/`:
-1. `blackrocke_capital_schema.sql` — Base schema (profiles, plans, investments, deposits, withdrawals, transactions, referrals, notifications, wallets, login_activity, user_settings, contact_messages)
-2. `blackrocke_capital_extended_schema.sql` — Extended schema additions
+1. `Blackgold_invests_schema.sql` — Base schema (profiles, plans, investments, deposits, withdrawals, transactions, referrals, notifications, wallets, login_activity, user_settings, contact_messages)
+2. `Blackgold_invests_extended_schema.sql` — Extended schema additions
 3. `backend_feature_extension.sql` — Admin notifications, settings table, investment automation columns
 
 Apply them in order via your Supabase SQL editor or the Supabase MCP migration tool.

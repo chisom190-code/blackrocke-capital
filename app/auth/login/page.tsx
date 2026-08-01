@@ -100,8 +100,8 @@ export default function LoginPage() {
               <TrendingUp className="w-6 h-6 text-black" />
             </div>
             <div>
-              <span className="text-xl font-bold text-white">BlackRocke</span>
-              <span className="text-xl font-bold text-amber-400"> Capital</span>
+              <span className="text-xl font-bold text-white">Blackgold</span>
+              <span className="text-xl font-bold text-amber-400"> invests</span>
             </div>
           </Link>
         </div>
@@ -143,8 +143,8 @@ export default function LoginPage() {
               <TrendingUp className="w-6 h-6 text-amber-400" />
             </div>
             <div>
-              <span className="text-xl font-bold text-black">BlackRocke</span>
-              <span className="text-xl font-bold text-amber-500"> Capital</span>
+              <span className="text-xl font-bold text-black">Blackgold</span>
+              <span className="text-xl font-bold text-amber-500"> invests</span>
             </div>
           </div>
 

@@ -69,7 +69,7 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <AdminHeader title="Admin Dashboard" subtitle="BlackRocke Capital Management" />
+      <AdminHeader title="Admin Dashboard" subtitle="Blackgold invests Management" />
       <div className="p-6 space-y-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <StatCard label="Total Users" value={stats.users.toLocaleString()} icon={Users} color="bg-blue-100 text-blue-600" change={12.5} />

@@ -57,8 +57,8 @@ export default function Navbar() {
               <TrendingUp className="w-6 h-6 text-amber-400 group-hover:text-white transition-colors duration-300" />
             </div>
             <div>
-              <span className="text-xl font-bold text-black tracking-tight">BlackRocke</span>
-              <span className="text-xl font-bold text-amber-500 tracking-tight"> Capital</span>
+              <span className="text-xl font-bold text-black tracking-tight">Blackgold</span>
+              <span className="text-xl font-bold text-amber-500 tracking-tight"> invests</span>
             </div>
           </Link>
 

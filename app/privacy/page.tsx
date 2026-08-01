@@ -37,7 +37,7 @@ export default function PrivacyPage() {
 
           <div className="prose prose-lg max-w-none">
             <p className="text-gray-600 leading-relaxed mb-8">
-              At BlackRocke Capital, we are committed to protecting your privacy and ensuring the security of your personal and financial information. This Privacy Policy explains how we collect, use, store, and protect your data when you use our investment platform and services.
+              At Blackgold invests, we are committed to protecting your privacy and ensuring the security of your personal and financial information. This Privacy Policy explains how we collect, use, store, and protect your data when you use our investment platform and services.
             </p>
 
             <div className="space-y-8">

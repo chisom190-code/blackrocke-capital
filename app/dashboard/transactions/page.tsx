@@ -107,7 +107,7 @@ export default function TransactionsPage() {
                       <td className="px-5 py-4">{typeIcon(t.type)}</td>
                       <td className="px-5 py-4 text-sm text-gray-600">{new Date(t.created_at).toLocaleDateString()}</td>
                       <td className="px-5 py-4">
-                        <span className={`text-xs px-2.5 py-1 rounded-full font-semibold capitalize ${t.type === 'deposit' ? 'bg-green-100 text-green-700' : t.type === 'withdrawal' ? 'bg-red-100 text-red-700' : t.type === 'investment' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'}`}>
+                        <span className={`text-xs px-2.5 py-1 rounded-full font-semibold investsize ${t.type === 'deposit' ? 'bg-green-100 text-green-700' : t.type === 'withdrawal' ? 'bg-red-100 text-red-700' : t.type === 'investment' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'}`}>
                           {t.type}
                         </span>
                       </td>

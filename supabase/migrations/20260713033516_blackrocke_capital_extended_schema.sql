@@ -1,5 +1,5 @@
 /*
-# BlackRocke Capital – Extended Schema
+# Blackgold invests – Extended Schema
 
 Adds: deposits, withdrawals, referrals, notifications, wallets, login_activity, user_settings
 All tables have RLS enabled.

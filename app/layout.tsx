@@ -11,11 +11,11 @@ const inter = Inter({ subsets: ["latin", "latin-ext"], display: "swap" });
 
 export const metadata: Metadata = {
   title: {
-    default: "BlackRocke Capital – Premium Investment Platform",
-    template: "%s | BlackRocke Capital",
+    default: "Blackgold invests – Premium Investment Platform",
+    template: "%s | Blackgold invests",
   },
   description:
-    "Join 50,000+ investors earning up to 30% ROI with BlackRocke Capital's expertly managed investment portfolios. Start with as little as $50. Cryptocurrency deposits, secure withdrawals, daily profits.",
+    "Join 50,000+ investors earning up to 30% ROI with Blackgold invests's expertly managed investment portfolios. Start with as little as $50. Cryptocurrency deposits, secure withdrawals, daily profits.",
   keywords: [
     "investment platform",
     "ROI",
@@ -24,32 +24,32 @@ export const metadata: Metadata = {
     "cryptocurrency investment",
     "Bitcoin investment",
     "USDT investment",
-    "BlackRocke Capital",
+    "Blackgold invests",
     "daily profits",
     "investment plans",
   ],
-  authors: [{ name: "BlackRocke Capital" }],
-  creator: "BlackRocke Capital",
-  publisher: "BlackRocke Capital",
+  authors: [{ name: "Blackgold invests" }],
+  creator: "Blackgold invests",
+  publisher: "Blackgold invests",
   openGraph: {
-    title: "BlackRocke Capital – Premium Investment Platform",
+    title: "Blackgold invests – Premium Investment Platform",
     description:
       "Earn up to 30% ROI with our expertly managed investment portfolios. Cryptocurrency deposits, daily profits, secure platform.",
     type: "website",
     locale: "en_US",
-    siteName: "BlackRocke Capital",
+    siteName: "Blackgold invests",
     images: [
       {
         url: "https://images.pexels.com/photos/7567443/pexels-photo-7567443.jpeg?auto=compress&cs=tinysrgb&w=1200",
         width: 1200,
         height: 630,
-        alt: "BlackRocke Capital Investment Platform",
+        alt: "Blackgold invests Investment Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BlackRocke Capital – Premium Investment Platform",
+    title: "Blackgold invests – Premium Investment Platform",
     description:
       "Earn up to 30% ROI with expertly managed investment portfolios. Cryptocurrency deposits, daily profits.",
     images: [
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
-  metadataBase: new URL("https://blackrockecapital.com"),
+  metadataBase: new URL("https://Blackgoldinvests.com"),
   alternates: {
     canonical: "/",
     languages: {

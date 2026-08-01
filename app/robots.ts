@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin', '/dashboard', '/auth'],
     },
-    sitemap: 'https://blackrockecapital.com/sitemap.xml',
+    sitemap: 'https://Blackgoldinvests.com/sitemap.xml',
   };
 }

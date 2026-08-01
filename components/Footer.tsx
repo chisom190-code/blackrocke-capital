@@ -17,7 +17,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-2xl font-bold text-black mb-1">Ready to Grow Your Wealth?</h3>
-            <p className="text-black/70">Join 50,000+ investors building their future with BlackRocke Capital.</p>
+            <p className="text-black/70">Join 50,000+ investors building their future with Blackgold invests.</p>
           </div>
           <Link
             href="/auth/register"
@@ -38,8 +38,8 @@ export default function Footer() {
                 <TrendingUp className="w-6 h-6 text-black" />
               </div>
               <div>
-                <span className="text-xl font-bold text-white">BlackRocke</span>
-                <span className="text-xl font-bold text-amber-400"> Capital</span>
+                <span className="text-xl font-bold text-white">Blackgold</span>
+                <span className="text-xl font-bold text-amber-400"> invests</span>
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">{t('footer_tagline')}</p>
@@ -140,7 +140,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} BlackRocke Capital. {t('footer_rights')}
+            © {new Date().getFullYear()} Blackgold invests. {t('footer_rights')}
           </p>
           <div className="flex gap-6">
             <Link href="/privacy" className="text-gray-500 hover:text-amber-400 text-sm transition-colors">{t('footer_privacy')}</Link>

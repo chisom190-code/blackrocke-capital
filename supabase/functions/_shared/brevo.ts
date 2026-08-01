@@ -19,7 +19,7 @@ export async function sendEmail({
     },
     body: JSON.stringify({
       sender: {
-        name: "BlackRocke Capital",
+        name: "Blackgold invests",
         email: "mail@legithub.xyz",
       },
       to: [

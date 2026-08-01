@@ -16,7 +16,7 @@ export const signupTemplate = (name: string) => `
 <tr>
 <td align="center">
 <h1 style="color:#0B5ED7;margin:0;">
-BlackRocke Capital
+Blackgold invests
 </h1>
 
 <p style="font-size:22px;font-weight:bold;">
@@ -24,7 +24,7 @@ Welcome, ${name} 👋
 </p>
 
 <p style="color:#666;line-height:1.7;">
-Thank you for joining BlackRocke Capital.
+Thank you for joining Blackgold invests.
 
 Your investment account has been created successfully.
 
@@ -49,7 +49,7 @@ Go to Dashboard
 <hr style="margin:40px 0;">
 
 <p style="color:#999;font-size:13px;">
-© BlackRocke Capital
+© Blackgold invests
 </p>
 
 </td>

@@ -1,5 +1,5 @@
 /*
-# BlackRocke Capital – Full Platform Schema
+# Blackgold invests – Full Platform Schema
 
 1. profiles – extends auth.users with role, balance, country
 2. investment_plans – the 4 portfolio tiers (seeded)

@@ -90,7 +90,7 @@ INSERT INTO settings (key, value) VALUES
   ('email_deposit_notifications', 'true'),
   ('email_withdrawal_notifications', 'true'),
   ('email_investment_notifications', 'true'),
-  ('site_name', 'BlackRocke Capital'),
+  ('site_name', 'Blackgold invests'),
   ('support_email', 'Jamshidiazar728@gmail.com')
 ON CONFLICT (key) DO NOTHING;
 

@@ -38,7 +38,7 @@ export default function ResetPasswordPage() {
         <div className="relative z-10">
           <Link href="/" className="flex items-center gap-3">
             <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center"><TrendingUp className="w-6 h-6 text-black" /></div>
-            <div><span className="text-xl font-bold text-white">BlackRocke</span><span className="text-xl font-bold text-amber-400"> Capital</span></div>
+            <div><span className="text-xl font-bold text-white">Blackgold</span><span className="text-xl font-bold text-amber-400"> invests</span></div>
           </Link>
         </div>
         <div className="relative z-10">
@@ -57,7 +57,7 @@ export default function ResetPasswordPage() {
         <div className="w-full max-w-md">
           <div className="lg:hidden flex items-center gap-3 mb-8">
             <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center"><TrendingUp className="w-6 h-6 text-amber-400" /></div>
-            <div><span className="text-xl font-bold text-black">BlackRocke</span><span className="text-xl font-bold text-amber-500"> Capital</span></div>
+            <div><span className="text-xl font-bold text-black">Blackgold</span><span className="text-xl font-bold text-amber-500"> invests</span></div>
           </div>
 
           {success ? (
