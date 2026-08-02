@@ -88,7 +88,7 @@ export default function AdminUsersPage() {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50">
-                  <tr>{['User', 'Country', 'Balance', 'Total Invested', 'KYC', 'Role', 'Status', 'Actions'].map(h => (
+                  <tr>{['User', 'Email', 'Balance', 'Total Invested', 'KYC', 'Role', 'Status', 'Actions'].map(h => (
                     <th key={h} className="text-left px-5 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">{h}</th>
                   ))}</tr>
                 </thead>
@@ -106,7 +106,7 @@ export default function AdminUsersPage() {
                           </div>
                         </div>
                       </td>
-                      <td className="px-5 py-4 text-sm text-gray-600">{u.country || '—'}</td>
+                      <td className="px-5 py-4 text-sm text-gray-600">{u.email || '—'}</td>
                       <td className="px-5 py-4 font-bold text-black text-sm">${(u.balance || 0).toLocaleString()}</td>
                       <td className="px-5 py-4 font-semibold text-amber-600 text-sm">${(u.total_invested || 0).toLocaleString()}</td>
                       <td className="px-5 py-4">

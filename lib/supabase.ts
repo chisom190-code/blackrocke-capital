@@ -19,6 +19,7 @@ export const supabase = getSupabase();
 export type Profile = {
   id: string;
   full_name: string | null;
+  email: string | null;
   phone: string | null;
   country: string | null;
   role: 'investor' | 'admin';

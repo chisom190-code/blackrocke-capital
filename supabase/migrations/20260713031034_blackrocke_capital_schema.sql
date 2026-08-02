@@ -14,6 +14,7 @@ Security: RLS enabled on every table.
 CREATE TABLE IF NOT EXISTS profiles (
   id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   full_name text,
+  email text,
   phone text,
   country text,
   role text NOT NULL DEFAULT 'investor',

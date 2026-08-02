@@ -63,7 +63,9 @@ export default function WithdrawalsPage() {
     setSubmitting(false);
   };
 
-  const approved = withdrawals.filter(w => w.status === 'completed').reduce((s, w) => s + w.amount, 0);
+  const approved = withdrawals
+  .filter(w => ['approved', 'completed'].includes(w.status))
+  .reduce((s, w) => s + w.amount, 0);
   const pending = withdrawals.filter(w => w.status === 'pending').reduce((s, w) => s + w.amount, 0);
 
   return (
