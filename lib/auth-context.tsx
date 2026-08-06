@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { User, Session } from '@supabase/supabase-js';
-import { supabase, Profile } from './supabase';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { User, Session } from "@supabase/supabase-js";
+import { supabase, Profile } from "./supabase";
 
 type AuthContextType = {
   user: User | null;
@@ -10,15 +10,18 @@ type AuthContextType = {
   profile: Profile | null;
   loading: boolean;
   signUp: (
-  email: string,
-  password: string,
-  fullName: string,
-  referralCode?: string
-) => Promise<{
-  data: any;
-  error: string | null;
-}>;
-  signIn: (email: string, password: string) => Promise<{ error: string | null }>;
+    email: string,
+    password: string,
+    fullName: string,
+    referralCode?: string,
+  ) => Promise<{
+    data: any;
+    error: string | null;
+  }>;
+  signIn: (
+    email: string,
+    password: string,
+  ) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 };
@@ -44,33 +47,33 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 function detectBrowser(): string {
-  if (typeof navigator === 'undefined') return 'Unknown';
+  if (typeof navigator === "undefined") return "Unknown";
   const ua = navigator.userAgent;
-  if (ua.includes('Chrome')) return 'Chrome';
-  if (ua.includes('Firefox')) return 'Firefox';
-  if (ua.includes('Safari')) return 'Safari';
-  if (ua.includes('Edge')) return 'Edge';
-  if (ua.includes('Opera')) return 'Opera';
-  return 'Unknown';
+  if (ua.includes("Chrome")) return "Chrome";
+  if (ua.includes("Firefox")) return "Firefox";
+  if (ua.includes("Safari")) return "Safari";
+  if (ua.includes("Edge")) return "Edge";
+  if (ua.includes("Opera")) return "Opera";
+  return "Unknown";
 }
 
 function detectDevice(): string {
-  if (typeof navigator === 'undefined') return 'Unknown';
+  if (typeof navigator === "undefined") return "Unknown";
   const ua = navigator.userAgent;
-  if (ua.includes('Mobile')) return 'Mobile';
-  if (ua.includes('Tablet')) return 'Tablet';
-  return 'Desktop';
+  if (ua.includes("Mobile")) return "Mobile";
+  if (ua.includes("Tablet")) return "Tablet";
+  return "Desktop";
 }
 
 function detectOS(): string {
-  if (typeof navigator === 'undefined') return 'Unknown';
+  if (typeof navigator === "undefined") return "Unknown";
   const ua = navigator.userAgent;
-  if (ua.includes('Windows')) return 'Windows';
-  if (ua.includes('Mac OS')) return 'macOS';
-  if (ua.includes('Linux')) return 'Linux';
-  if (ua.includes('Android')) return 'Android';
-  if (ua.includes('iOS')) return 'iOS';
-  return 'Unknown';
+  if (ua.includes("Windows")) return "Windows";
+  if (ua.includes("Mac OS")) return "macOS";
+  if (ua.includes("Linux")) return "Linux";
+  if (ua.includes("Android")) return "Android";
+  if (ua.includes("iOS")) return "iOS";
+  return "Unknown";
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -80,11 +83,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = async (userId: string) => {
-    const { data } = await supabase.from('profiles').select('*').eq('id', userId).maybeSingle();
+    const { data } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", userId)
+      .maybeSingle();
     setProfile(data as Profile | null);
   };
 
-  const recordLoginActivity = async (userId: string, email: string, fullName: string) => {
+  const recordLoginActivity = async (
+    userId: string,
+    email: string,
+    fullName: string,
+  ) => {
     try {
       const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
       const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -94,16 +105,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const os = detectOS();
 
       await fetch(`${supabaseUrl}/functions/v1/login-activity`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${(await supabase.auth.getSession()).data.session?.access_token || anonKey}`,
-          'apikey': anonKey!,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token || anonKey}`,
+          apikey: anonKey!,
         },
         body: JSON.stringify({
-          userId, email, fullName,
-          browser, device, os,
-          status: 'success',
+          userId,
+          email,
+          fullName,
+          browser,
+          device,
+          os,
+          status: "success",
         }),
       });
     } catch (e) {
@@ -119,15 +134,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(false);
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) {
         (async () => {
           await fetchProfile(session.user.id);
-          if (event === 'SIGNED_IN') {
-            const { data: prof } = await supabase.from('profiles').select('full_name').eq('id', session.user.id).maybeSingle();
-            await recordLoginActivity(session.user.id, session.user.email || '', prof?.full_name || '');
+          if (event === "SIGNED_IN") {
+            const { data: prof } = await supabase
+              .from("profiles")
+              .select("full_name")
+              .eq("id", session.user.id)
+              .maybeSingle();
+            await recordLoginActivity(
+              session.user.id,
+              session.user.email || "",
+              prof?.full_name || "",
+            );
           }
         })();
       } else {
@@ -140,64 +165,83 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signUp = async (
-  email: string,
-  password: string,
-  fullName: string,
-  referralCode?: string
-) => {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: { full_name: fullName },
-    },
-  });
+    email: string,
+    password: string,
+    fullName: string,
+    referralCode?: string,
+  ) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: fullName },
+      },
+    });
 
-  if (error) {
-    return {
-      data: null,
-      error: error.message,
-    };
-  }
-
-  // Handle referral
-  if (referralCode && data.user) {
-    try {
-      const { data: referrerSettings } = await supabase
-        .from("user_settings")
-        .select("id, referral_code")
-        .eq("referral_code", referralCode.toUpperCase())
-        .maybeSingle();
-
-      if (referrerSettings && referrerSettings.id !== data.user.id) {
-        await supabase.from("referrals").insert({
-          referrer_id: referrerSettings.id,
-          referred_id: data.user.id,
-          commission_rate: 5.0,
-          earnings: 0,
-          status: "active",
-        });
-
-        await supabase
-          .from("user_settings")
-          .update({
-            referred_by: referrerSettings.id,
-          })
-          .eq("id", data.user.id);
-      }
-    } catch (e) {
-      // Ignore referral errors
+    if (error) {
+      return {
+        data: null,
+        error: error.message,
+      };
     }
-  }
 
-  return {
-    data,
-    error: null,
+    // Handle referral
+    // Handle referral
+    if (referralCode && data.user) {
+      try {
+        console.log("Referral code entered:", referralCode);
+
+        const { data: referrerSettings, error: referrerError } = await supabase
+          .from("user_settings")
+          .select("id, referral_code")
+          .eq("referral_code", referralCode.toUpperCase())
+          .maybeSingle();
+
+        console.log("Referrer:", referrerSettings);
+        console.log("Referrer error:", referrerError);
+
+        if (referrerSettings && referrerSettings.id !== data.user.id) {
+          const { error: insertError } = await supabase
+            .from("referrals")
+            .insert({
+              referrer_id: referrerSettings.id,
+              referred_id: data.user.id,
+              commission_rate: 5,
+              earnings: 0,
+              status: "active",
+            });
+
+          console.log("Referral insert error:", insertError);
+
+          const { data: updatedRows, error: updateError } = await supabase
+            .from("user_settings")
+            .update({
+              referred_by: referrerSettings.id,
+            })
+            .eq("id", data.user.id)
+            .select();
+
+          console.log("Updated rows:", updatedRows);
+          console.log("Update referred_by error:", updateError);
+        } else {
+          console.log("Referral code not found.");
+        }
+      } catch (e) {
+        console.error("Referral exception:", e);
+      }
+    }
+
+    return {
+      data,
+      error: null,
+    };
   };
-};
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
     return { error: error?.message ?? null };
   };
 
@@ -210,7 +254,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, profile, loading, signUp, signIn, signOut, refreshProfile }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        session,
+        profile,
+        loading,
+        signUp,
+        signIn,
+        signOut,
+        refreshProfile,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

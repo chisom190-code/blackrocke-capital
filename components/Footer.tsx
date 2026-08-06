@@ -124,13 +124,13 @@ export default function Footer() {
                   alignItems: "center",
                   justifyContent: "center",
                 }}>
-                  <Image style={{
+                  {/* <Image style={{
                     width: "100%",
                     height: "auto",
                     objectFit: "contain",
                     minWidth: "100%",
                     maxWidth: "100%",
-                  }} src={licence} alt="licence image" />
+                  }} src={licence} alt="licence image" /> */}
                 </div>
               </li>
             </ul>
